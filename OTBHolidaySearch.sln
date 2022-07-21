@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTBHolidaySearch", "OTBHolidaySearch\OTBHolidaySearch.csproj", "{46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTBHolidaySearch.Test", "OTBHolidaySearch.Test\OTBHolidaySearch.Test.csproj", "{442D1157-CE57-49D1-8C24-F17BD26832A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{442D1157-CE57-49D1-8C24-F17BD26832A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{442D1157-CE57-49D1-8C24-F17BD26832A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{442D1157-CE57-49D1-8C24-F17BD26832A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{442D1157-CE57-49D1-8C24-F17BD26832A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {345AC021-5170-4ED0-8711-5019AE928571}
+	EndGlobalSection
+EndGlobal
