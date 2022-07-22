@@ -19,4 +19,12 @@
     <ProjectReference Include="..\OTBHolidaySearch\OTBHolidaySearch.csproj" />
   </ItemGroup>
 
+    <ItemGroup>
+	    <ContentWithTargetPath Include="JsonData\**">
+		    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		    <TargetPath>%(Filename)%(Extension)</TargetPath>
+	    </ContentWithTargetPath>
+    </ItemGroup>
+
+
 </Project>
