@@ -45,5 +45,37 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
             flight?.DepartureDate.Should().BeSameDateAs(departureDate);
 
         }
+
+        [Test]
+        public void Deserialise_A_Json_String_Into_A_Hotel_Object()
+        {
+            // Arrange
+
+            string jsonString = @"{
+                                    ""id"": 3,
+                                    ""name"": ""Sol Katmandu Park & Resort"",
+                                    ""arrival_date"": ""2023-06-15"",
+                                    ""price_per_night"": 59,
+                                    ""local_airports"": [""PMI""],
+                                    ""nights"": 14
+            }";
+
+            DateTime arrivalDate = new(2023, 06, 15);
+
+            // Act
+
+            Hotel? hotel = JsonSerializer.Deserialize<Hotel>(jsonString);
+
+
+            // Assert
+
+            hotel?.Id.Should().Be(3);
+            hotel?.Name.Should().Be("Sol Katmandu Park & Resort");
+            hotel?.ArrivalDate.Should().BeSameDateAs(arrivalDate);
+            hotel?.PricePerNight.Should().Be(59);
+            hotel?.LocalAirports?[0].Should().Be("PMI");
+            hotel?.Nights.Should().Be(14);
+
+        }
     }
 }

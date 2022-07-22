@@ -10,22 +10,22 @@ namespace OTBHolidaySearch
     public class Flight
     {
         [JsonPropertyName("id")]
-        public int Id { get; set;
+        public int? Id { get; set;
         }
         [JsonPropertyName("airline")]
-        public string Airline { get; set; }
+        public string? Airline { get; set; }
 
         [JsonPropertyName("from")]
-        public string From { get; set; }
+        public string? From { get; set; }
 
         [JsonPropertyName("to")]
-        public string To { get; set; }
+        public string? To { get; set; }
 
         [JsonPropertyName("price")]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         [JsonPropertyName("departure_date")]
-        public DateTime DepartureDate { get; set; }
+        public DateTime? DepartureDate { get; set; }
 
     }
 }
