@@ -88,6 +88,35 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
         }
 
         [Test]
+        public void Deserialise_A_Json_String_Into_A_InputCriteria_Object()
+        {
+            // Arrange
+
+            string jsonString = @"{
+                                    ""DepartingFrom"": ""MAN"",
+                                    ""TravelingTo"": ""AGP"",
+                                    ""DepartureDate"": ""2023-07-01"",
+                                    ""Duration"": 7
+                                    
+            }";
+
+            DateTime arrivalDate = new(2023, 07, 01);
+
+            // Act
+
+            InputCriteria? inputCriteria = JsonSerializer.Deserialize<InputCriteria>(jsonString);
+
+
+            // Assert
+
+            inputCriteria?.DepartingFrom.Should().Be("MAN");
+            inputCriteria?.TravelingTo.Should().Be("AGP");
+            inputCriteria?.DepartureDate.Should().BeSameDateAs(arrivalDate);
+            inputCriteria?.Duration.Should().Be(7);
+
+        }
+
+        [Test]
         public void Deserialise_A_Json_File_Into_A_List_Of_Flight_Objects()
         {
             // Arrange

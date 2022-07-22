@@ -11,6 +11,8 @@ namespace OTBHolidaySearch.Test.SearchTests
 {
     public class SearchTests
     {
+
+
         [SetUp]
         public void Setup()
         {
@@ -19,17 +21,11 @@ namespace OTBHolidaySearch.Test.SearchTests
 
         [Test]
 
-        public void Check_Can_Pass_Criteria_Structure_To_HolidaySearch()
+        public void Check_Can_Pass_Criteria_To_HolidaySearch()
         {
             // Arrange
 
-            HolidaySearch holidaySearch = new(new HolidaySearch.Criteria
-            {
-                DepartingFrom = "MAN",
-                TravellingTo =  "AGP",
-                DepartureDate =  new DateTime(2023,07,01),
-                Duration = 7
-            });
+
 
 
             // Act
@@ -38,11 +34,7 @@ namespace OTBHolidaySearch.Test.SearchTests
 
             // Assert
 
-            holidaySearch.holidayCriteria.DepartingFrom.Should().Be("MAN");
-            holidaySearch.holidayCriteria.TravellingTo.Should().Be("AGP");
-            holidaySearch.holidayCriteria.DepartureDate.Should().BeSameDateAs(new DateTime(2023, 07, 01));
-            holidaySearch.holidayCriteria.Duration.Should().Be(7);
-        }
+        }   
 
     }
 }
