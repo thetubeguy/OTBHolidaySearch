@@ -12,12 +12,14 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
 {
     public class Tests
     {
-        public string FlightFilename = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) + "\\FlightData.json";
+        static public string BuildPath = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) + "\\";
+        static public string FlightFilePath = BuildPath + "FlightData.json";
+        static public string HotelFilePath = BuildPath + "HotelData.json";
 
         [SetUp]
         public void Setup()
         {
-           
+
         }
 
         [Test]
@@ -34,11 +36,11 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
                                     ""departure_date"": ""2023-07-01""
             }";
 
-            DateTime departureDate = new(2023,07, 01);
+            DateTime departureDate = new(2023, 07, 01);
 
             // Act
 
-            Flight?  flight = JsonSerializer.Deserialize<Flight>(jsonString);
+            Flight? flight = JsonSerializer.Deserialize<Flight>(jsonString);
 
 
             // Assert
@@ -86,11 +88,11 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
         }
 
         [Test]
-        public void Deserialise_A_Json_String_From_A_File_Into_A_List_Of_Flight_Objects()
+        public void Deserialise_A_Json_File_Into_A_List_Of_Flight_Objects()
         {
             // Arrange
 
-            string jsonString = File.ReadAllText(FlightFilename);
+            string jsonString = File.ReadAllText(FlightFilePath);
 
             DateTime departureDate1 = new(2023, 07, 01);
             DateTime departureDate11 = new(2023, 10, 25);
@@ -116,6 +118,40 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
             flights?.FlightList?[11]?.Price.Should().Be(202);
             flights?.FlightList?[11]?.DepartureDate.Should().BeSameDateAs(departureDate11);
 
+
+        }
+
+        [Test]
+        public void Deserialise_A_Json_File_Into_A_List_Of_Hotel_Objects()
+        {
+            // Arrange
+
+            string jsonString = File.ReadAllText(HotelFilePath);
+
+            DateTime arrivalDate = new(2023, 06, 15);
+
+
+            // Act
+
+            Hotels? hotels = JsonSerializer.Deserialize<Hotels>(jsonString);
+
+
+            // Assert
+
+            hotels?.HotelList?[0]?.Id.Should().Be(1);
+            hotels?.HotelList?[0]?.Name.Should().Be("Iberostar Grand Portals Nous");
+            hotels?.HotelList?[0]?.ArrivalDate.Should().BeSameDateAs(arrivalDate);
+            hotels?.HotelList?[0]?.PricePerNight.Should().Be(100);
+            hotels?.HotelList?[0]?.LocalAirports?[0].Should().Be("TFS");
+            hotels?.HotelList?[0]?.Nights.Should().Be(7);
+
+
+            hotels?.HotelList?[12]?.Id.Should().Be(13);
+            hotels?.HotelList?[12]?.Name.Should().Be("Jumeirah Port Soller");
+            hotels?.HotelList?[12]?.ArrivalDate.Should().BeSameDateAs(arrivalDate);
+            hotels?.HotelList?[12]?.PricePerNight.Should().Be(295);
+            hotels?.HotelList?[12]?.LocalAirports?[0].Should().Be("PMI");
+            hotels?.HotelList?[12]?.Nights.Should().Be(10);
 
         }
     }
