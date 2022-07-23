@@ -157,7 +157,8 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
 
             string jsonString = File.ReadAllText(HotelFilePath);
 
-            DateTime arrivalDate = new(2023, 06, 15);
+            DateTime arrivalDate1 = new(2022, 11, 05);
+            DateTime arrivalDate13 = new(2023, 06, 15);
 
 
             // Act
@@ -169,7 +170,7 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
 
             hotels?.HotelList?[0]?.Id.Should().Be(1);
             hotels?.HotelList?[0]?.Name.Should().Be("Iberostar Grand Portals Nous");
-            hotels?.HotelList?[0]?.ArrivalDate.Should().BeSameDateAs(arrivalDate);
+            hotels?.HotelList?[0]?.ArrivalDate.Should().BeSameDateAs(arrivalDate1);
             hotels?.HotelList?[0]?.PricePerNight.Should().Be(100);
             hotels?.HotelList?[0]?.LocalAirports?[0].Should().Be("TFS");
             hotels?.HotelList?[0]?.Nights.Should().Be(7);
@@ -177,7 +178,7 @@ namespace OTBHolidaySearch.Test.DeserialisationTests
 
             hotels?.HotelList?[12]?.Id.Should().Be(13);
             hotels?.HotelList?[12]?.Name.Should().Be("Jumeirah Port Soller");
-            hotels?.HotelList?[12]?.ArrivalDate.Should().BeSameDateAs(arrivalDate);
+            hotels?.HotelList?[12]?.ArrivalDate.Should().BeSameDateAs(arrivalDate13);
             hotels?.HotelList?[12]?.PricePerNight.Should().Be(295);
             hotels?.HotelList?[12]?.LocalAirports?[0].Should().Be("PMI");
             hotels?.HotelList?[12]?.Nights.Should().Be(10);
