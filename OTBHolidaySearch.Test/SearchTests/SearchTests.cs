@@ -65,8 +65,34 @@ namespace OTBHolidaySearch.Test.SearchTests
 
             // Assert
 
-            holidaySearch.ValidatedCriteria.DepartingFrom[0].Code.Should().Be("LGW");
-            holidaySearch.ValidatedCriteria.DepartingFrom[1].Code.Should().Be("LTN");
+            holidaySearch.ValidatedCriteria.DepartingFrom.Should().Satisfy(x => x.Code == "LGW", x => x.Code == "LTN");
+          
+        }
+
+        [Test]
+
+        public void Pass_Criteria_To_HolidaySearch_In_Json_String_And_Check_Validation_With_Any_Airport()
+        {
+            // Arrange
+
+            string jsonString = @"{
+                                    ""DepartingFrom"": ""Any Airport"",
+                                    ""TravelingTo"": ""LPA"",
+                                    ""DepartureDate"": ""2022-11-10"",
+                                    ""Duration"": 14
+                                    
+            }";
+
+
+            // Act
+
+            HolidaySearch holidaySearch = new(jsonString);
+
+            // Assert
+
+            holidaySearch.ValidatedCriteria.DepartingFrom.Should().Satisfy(x => x.Code =="LGW", x => x.Code == "LTN", x => x.Code == "MAN");
+
+
         }
     }
 }

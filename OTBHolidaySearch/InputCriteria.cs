@@ -27,13 +27,19 @@ namespace OTBHolidaySearch
         {
             ValidatedCriteria validatedCriteria = new();
 
+            // Check for "Any Airport"
+            if (Regex.IsMatch(this.DepartingFrom, @".*Any\s+Airport.*"))
+                validatedCriteria.DepartingFrom = airports.UkAirports;
+
             foreach (Airport airport in airports.UkAirports)
             {
+                // Check for airport code match
                 if (Regex.IsMatch(this.DepartingFrom, ".*" + airport.Code + ".*"))
                     validatedCriteria.DepartingFrom.Add(airport);
                 else
                 {
-                    Match cityMatch = Regex.Match(this.DepartingFrom, @".*Any\s+([a-z,A-z]+)\s+.*");
+                    // Check for "Any <City> airport"
+                    Match cityMatch = Regex.Match(this.DepartingFrom, @".*Any\s+([a-z,A-z]+)\s+Airport.*");
                     if (cityMatch.Success)
                     {
                         if(airport.AreaCovered == cityMatch.Groups[1].Value)
