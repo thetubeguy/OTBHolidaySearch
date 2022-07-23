@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 
@@ -23,27 +23,38 @@ namespace OTBHolidaySearch
         public int? Duration { get; set; }
    
 
- /*       void validateInputCriteria(string jsonstring)
+        public ValidatedCriteria validateInputCriteria(Airports airports)
         {
-            foreach (Airport airport in UkAirports)
+            ValidatedCriteria validatedCriteria = new();
+
+            foreach (Airport airport in airports.UkAirports)
             {
-                if (Regex.IsMatch(inputcriteria.DepartingFrom, ".*" + airport.Code + ".*"))
-                    ValidatedCriteria.DepartingFrom.Add(airport);
+                if (Regex.IsMatch(this.DepartingFrom, ".*" + airport.Code + ".*"))
+                    validatedCriteria.DepartingFrom.Add(airport);
+                else
+                {
+                    Match cityMatch = Regex.Match(this.DepartingFrom, @".*Any\s+([a-z,A-z]+)\s+.*");
+                    if (cityMatch.Success)
+                    {
+                        if(airport.AreaCovered == cityMatch.Groups[1].Value)
+                            validatedCriteria.DepartingFrom.Add(airport);
+                    }
+
+                }
+            }
+
+            foreach (Airport airport in airports.OverseasAirports)
+            {
+                if (Regex.IsMatch(this.TravelingTo, @".*" + airport.Code + @".*"))
+                    validatedCriteria.TravellingTo.Add(airport);
 
             }
 
-            foreach (Airport airport in OverseasAirports)
-            {
-                if (Regex.IsMatch(inputcriteria.TravellingTo, ".*" + airport.Code + ".*"))
-                    ValidatedCriteria.TravellingTo.Add(airport);
+            validatedCriteria.DepartureDate = this.DepartureDate;
 
-            }
+            validatedCriteria.Duration = this.Duration;
 
-            ValidatedCriteria.DepartureDate = DateTime.Parse(inputcriteria.DepartureDate);
-
-            ValidatedCriteria.Duration = inputcriteria.Duration;
-
-
-        } */
+            return validatedCriteria;
+        } 
     }
 }
