@@ -20,6 +20,10 @@ namespace OTBHolidaySearch
 
 
         public ValidatedCriteria? ValidatedCriteria;
+        public List<Flight?> flightsThatMeetCriteria;
+        public List<Hotel?> hotelsThatMeetCriteria;
+        public List<Result> Results;
+
         Flights? flights;
         Hotels? hotels;
 
@@ -36,6 +40,16 @@ namespace OTBHolidaySearch
             string jsonStringHotels = File.ReadAllText(HotelFilePath);
             hotels = JsonSerializer.Deserialize<Hotels>(jsonStringHotels);
 
+            flightsThatMeetCriteria = GetFlights(ValidatedCriteria.DepartingFrom, ValidatedCriteria.TravellingTo, (DateTime)ValidatedCriteria.DepartureDate);
+
+            hotelsThatMeetCriteria = GetHotels(ValidatedCriteria.TravellingTo, (DateTime)ValidatedCriteria.DepartureDate, ValidatedCriteria.Duration);
+
+            List<Result> unorderedResults = new();
+            foreach (Flight criteriaFlight in flightsThatMeetCriteria)
+                foreach (Hotel criteriaHotel in hotelsThatMeetCriteria)
+                    unorderedResults.Add(new(criteriaFlight, criteriaHotel));
+
+            Results = unorderedResults.OrderBy(r => r.TotalPrice).ToList();
         }
 
         public List<Flight?> GetFlights(List<Airport> fromAirports, Airport toAirport, DateTime departureDate)
