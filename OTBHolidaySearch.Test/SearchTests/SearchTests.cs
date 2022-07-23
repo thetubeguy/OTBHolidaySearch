@@ -121,5 +121,33 @@ namespace OTBHolidaySearch.Test.SearchTests
             flights[0].Id.Should().Be(7);
 
         }
+
+        [Test]
+
+        public void Check_List_Of_Hotels_Meets_Criteria()
+        {
+            // Arrange
+
+            string jsonString = @"{
+                                    ""DepartingFrom"": ""Any Airport"",
+                                    ""TravelingTo"": ""LPA"",
+                                    ""DepartureDate"": ""2022-11-10"",
+                                    ""Duration"": 14
+                                    
+            }";
+
+
+            // Act
+
+            HolidaySearch? holidaySearch = new(jsonString);
+
+            List<Hotel?> hotels = holidaySearch.GetHotels(holidaySearch.ValidatedCriteria.TravellingTo, (DateTime)holidaySearch.ValidatedCriteria.DepartureDate, holidaySearch.ValidatedCriteria.Duration);
+
+            // Assert
+
+            hotels[0].Id.Should().Be(6);
+
+        }
+
     }
 }

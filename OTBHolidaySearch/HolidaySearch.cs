@@ -21,6 +21,7 @@ namespace OTBHolidaySearch
 
         public ValidatedCriteria? ValidatedCriteria;
         Flights? flights;
+        Hotels? hotels;
 
         public HolidaySearch(string jsoninput)
         {
@@ -33,10 +34,7 @@ namespace OTBHolidaySearch
             flights = JsonSerializer.Deserialize<Flights>(jsonStringFlights);
 
             string jsonStringHotels = File.ReadAllText(HotelFilePath);
-            Hotels? hotels = JsonSerializer.Deserialize<Hotels>(jsonStringFlights);
-
-            
-
+            hotels = JsonSerializer.Deserialize<Hotels>(jsonStringHotels);
 
         }
 
@@ -60,6 +58,17 @@ namespace OTBHolidaySearch
             return flightsMeetingCriteria;
         }
 
-        
+        public List<Hotel?> GetHotels(Airport toAirport, DateTime arrivalDate, int? numNights)
+        {
+            List<Hotel?> hotelsMeetingCriteria = new();
+
+            foreach(Hotel? hotel in hotels?.HotelList)
+            {
+                if(hotel.LocalAirports.Contains(toAirport.Code) && (arrivalDate == hotel.ArrivalDate) && (numNights == hotel.Nights))
+                    hotelsMeetingCriteria.Add(hotel);
+            }
+
+            return hotelsMeetingCriteria;
+        }
     }
 }
