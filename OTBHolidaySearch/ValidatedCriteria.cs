@@ -9,7 +9,7 @@ namespace OTBHolidaySearch
     public class ValidatedCriteria
     {
         public List<Airport>? DepartingFrom = new();
-        public List<Airport>? TravellingTo = new();
+        public Airport? TravellingTo;
         public DateTime? DepartureDate;
         public int? Duration;
         

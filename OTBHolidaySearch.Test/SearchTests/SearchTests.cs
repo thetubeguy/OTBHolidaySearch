@@ -46,7 +46,7 @@ namespace OTBHolidaySearch.Test.SearchTests
 
         [Test]
 
-        public void Pass_Criteria_To_HolidaySearch_In_Json_String_And_Check_Validation_With_Any_London()
+        public void Pass_Criteria_To_HolidaySearch_In_Json_String_And_Check_Validation_With_Any_London_Airport()
         {
             // Arrange
 
@@ -92,6 +92,33 @@ namespace OTBHolidaySearch.Test.SearchTests
 
             holidaySearch.ValidatedCriteria.DepartingFrom.Should().Satisfy(x => x.Code =="LGW", x => x.Code == "LTN", x => x.Code == "MAN");
 
+        }
+
+
+        [Test]
+
+        public void Check_List_Of_Flights_Meets_Criteria()
+        {
+            // Arrange
+
+            string jsonString = @"{
+                                    ""DepartingFrom"": ""Any Airport"",
+                                    ""TravelingTo"": ""LPA"",
+                                    ""DepartureDate"": ""2022-11-10"",
+                                    ""Duration"": 14
+                                    
+            }";
+
+
+            // Act
+
+            HolidaySearch? holidaySearch = new(jsonString);
+
+            List<Flight?> flights = holidaySearch.GetFlights(holidaySearch.ValidatedCriteria.DepartingFrom, holidaySearch.ValidatedCriteria.TravellingTo, (DateTime)holidaySearch.ValidatedCriteria.DepartureDate);
+
+            // Assert
+
+            flights[0].Id.Should().Be(7);
 
         }
     }

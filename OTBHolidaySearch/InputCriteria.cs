@@ -30,29 +30,31 @@ namespace OTBHolidaySearch
             // Check for "Any Airport"
             if (Regex.IsMatch(this.DepartingFrom, @".*Any\s+Airport.*"))
                 validatedCriteria.DepartingFrom = airports.UkAirports;
-
-            foreach (Airport airport in airports.UkAirports)
+            else
             {
-                // Check for airport code match
-                if (Regex.IsMatch(this.DepartingFrom, ".*" + airport.Code + ".*"))
-                    validatedCriteria.DepartingFrom.Add(airport);
-                else
+                foreach (Airport airport in airports.UkAirports)
                 {
-                    // Check for "Any <City> airport"
-                    Match cityMatch = Regex.Match(this.DepartingFrom, @".*Any\s+([a-z,A-z]+)\s+Airport.*");
-                    if (cityMatch.Success)
+                    // Check for airport code match
+                    if (Regex.IsMatch(this.DepartingFrom, ".*" + airport.Code + ".*"))
+                        validatedCriteria.DepartingFrom.Add(airport);
+                    else
                     {
-                        if(airport.AreaCovered == cityMatch.Groups[1].Value)
-                            validatedCriteria.DepartingFrom.Add(airport);
-                    }
+                        // Check for "Any <City> airport"
+                        Match cityMatch = Regex.Match(this.DepartingFrom, @".*Any\s+([a-z,A-z]+)\s+Airport.*");
+                        if (cityMatch.Success)
+                        {
+                            if (airport.AreaCovered == cityMatch.Groups[1].Value)
+                                validatedCriteria.DepartingFrom.Add(airport);
+                        }
 
+                    }
                 }
             }
 
             foreach (Airport airport in airports.OverseasAirports)
             {
                 if (Regex.IsMatch(this.TravelingTo, @".*" + airport.Code + @".*"))
-                    validatedCriteria.TravellingTo.Add(airport);
+                    validatedCriteria.TravellingTo = airport;
 
             }
 
