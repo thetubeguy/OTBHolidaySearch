@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTBHolidaySearch", "OTBHolidaySearch\OTBHolidaySearch.csproj", "{46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTBHolidaySearch", "OTBHolidaySearch\OTBHolidaySearch.csproj", "{46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTBHolidaySearch.Test", "OTBHolidaySearch.Test\OTBHolidaySearch.Test.csproj", "{442D1157-CE57-49D1-8C24-F17BD26832A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTBHolidaySearch.Test", "OTBHolidaySearch.Test\OTBHolidaySearch.Test.csproj", "{442D1157-CE57-49D1-8C24-F17BD26832A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTBHolidaySearchConsumer", "OTBHolidaySearchConsumer\OTBHolidaySearchConsumer.csproj", "{A09A970A-BEE6-406C-9038-F6D16F36AB5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{442D1157-CE57-49D1-8C24-F17BD26832A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{442D1157-CE57-49D1-8C24-F17BD26832A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{442D1157-CE57-49D1-8C24-F17BD26832A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A09A970A-BEE6-406C-9038-F6D16F36AB5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A09A970A-BEE6-406C-9038-F6D16F36AB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A09A970A-BEE6-406C-9038-F6D16F36AB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A09A970A-BEE6-406C-9038-F6D16F36AB5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
