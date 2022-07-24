@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Text.Json.Serialization;
 
 namespace OTBHolidaySearch
 {
- 
+
     public class InputCriteria
     {
         [JsonPropertyName("DepartingFrom")]
@@ -21,16 +17,22 @@ namespace OTBHolidaySearch
 
         [JsonPropertyName("Duration")]
         public int? Duration { get; set; }
-   
+
 
         public ValidatedCriteria? validateInputCriteria(Airports airports)
         {
             ValidatedCriteria? validatedCriteria = new();
 
             // Check for "Any Airport"
-            if ((this.DepartingFrom == null) || (this.DepartingFrom.Count() == 0)) throw new Exception("No departure airport found in input criteria");
+            if ((this.DepartingFrom == null) || (this.DepartingFrom.Count() == 0))
+            {
+                throw new Exception("No departure airport found in input criteria");
+            }
+
             if (Regex.IsMatch(this.DepartingFrom, @".*Any\s+Airport.*"))
+            {
                 validatedCriteria.DepartingFrom = airports.UkAirports;
+            }
             else
             {
                 validatedCriteria.DepartingFrom = new();
@@ -39,7 +41,7 @@ namespace OTBHolidaySearch
                     // Check for airport code match
                     if (Regex.IsMatch(this.DepartingFrom, ".*" + airport.Code + ".*"))
                     {
-                        
+
                         validatedCriteria.DepartingFrom.Add(airport);
                     }
                     else
@@ -49,31 +51,46 @@ namespace OTBHolidaySearch
                         if (cityMatch.Success)
                         {
                             if (airport.AreaCovered == cityMatch.Groups[1].Value)
+                            {
                                 validatedCriteria.DepartingFrom.Add(airport);
+                            }
                         }
 
                     }
                 }
             }
 
- 
 
-            if ((this.TravelingTo == null) || (this.TravelingTo == "")) throw new Exception("No destination airport found in input criteria");
+
+            if ((this.TravelingTo == null) || (this.TravelingTo == ""))
+            {
+                throw new Exception("No destination airport found in input criteria");
+            }
+
             foreach (Airport airport in airports.OverseasAirports)
             {
                 if (Regex.IsMatch(this.TravelingTo, @".*" + airport.Code + @".*"))
+                {
                     validatedCriteria.TravellingTo = airport;
-
+                }
             }
 
-            if (this.DepartureDate == null) throw new Exception("No Departure date found in input criteria");
+            if (this.DepartureDate == null)
+            {
+                throw new Exception("No Departure date found in input criteria");
+            }
+
             validatedCriteria.DepartureDate = this.DepartureDate;
 
-            if (this.Duration == null) throw new Exception("No Duration found in input criteria");
+            if (this.Duration == null)
+            {
+                throw new Exception("No Duration found in input criteria");
+            }
+
             validatedCriteria.Duration = this.Duration;
 
-            
+
             return validatedCriteria;
-        } 
+        }
     }
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using OTBHolidaySearch;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace OTBHolidaySearch.Test.SearchTests
 {
@@ -66,7 +62,7 @@ namespace OTBHolidaySearch.Test.SearchTests
             // Assert
 
             holidaySearch.ValidatedCriteria.DepartingFrom.Should().Satisfy(x => x.Code == "LGW", x => x.Code == "LTN");
-          
+
         }
 
         [Test]
@@ -90,7 +86,7 @@ namespace OTBHolidaySearch.Test.SearchTests
 
             // Assert
 
-            holidaySearch.ValidatedCriteria.DepartingFrom.Should().Satisfy(x => x.Code =="LGW", x => x.Code == "LTN", x => x.Code == "MAN");
+            holidaySearch.ValidatedCriteria.DepartingFrom.Should().Satisfy(x => x.Code == "LGW", x => x.Code == "LTN", x => x.Code == "MAN");
 
         }
 

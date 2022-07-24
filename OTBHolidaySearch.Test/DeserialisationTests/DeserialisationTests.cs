@@ -1,12 +1,9 @@
-using NUnit.Framework;
-using OTBHolidaySearch;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using FluentAssertions;
+using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text.Json;
 
 namespace OTBHolidaySearch.Test.DeserialisationTests
 {

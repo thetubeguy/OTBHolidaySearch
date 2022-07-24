@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OTBHolidaySearch
+﻿namespace OTBHolidaySearch
 {
     public class ValidatedCriteria
     {
@@ -12,6 +6,6 @@ namespace OTBHolidaySearch
         public Airport? TravellingTo = null;
         public DateTime? DepartureDate = null;
         public int? Duration = null;
-        
+
     }
 }

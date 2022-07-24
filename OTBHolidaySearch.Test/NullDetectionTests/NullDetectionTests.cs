@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
+using System;
 
 namespace OTBHolidaySearch.Test.NullDetectionTests
 {
@@ -60,9 +56,9 @@ namespace OTBHolidaySearch.Test.NullDetectionTests
 
 
             // Act
-            try 
-            { 
-                HolidaySearch? holidaySearch = new(jsonString); 
+            try
+            {
+                HolidaySearch? holidaySearch = new(jsonString);
             }
             catch (Exception ex)
             {
@@ -70,7 +66,7 @@ namespace OTBHolidaySearch.Test.NullDetectionTests
                 ex.Message.Should().Be("No destination airport found in input criteria");
             }
 
-            
+
 
         }
 
