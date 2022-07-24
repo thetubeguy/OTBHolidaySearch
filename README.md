@@ -1,1 +1,3 @@
-OTBHolidaySearch
+## OTBHolidaySearch Class Library
+
+### Usage
