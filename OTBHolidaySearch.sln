@@ -7,7 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTBHolidaySearch", "OTBHoli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTBHolidaySearch.Test", "OTBHolidaySearch.Test\OTBHolidaySearch.Test.csproj", "{442D1157-CE57-49D1-8C24-F17BD26832A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTBHolidaySearchConsumer", "OTBHolidaySearchConsumer\OTBHolidaySearchConsumer.csproj", "{A09A970A-BEE6-406C-9038-F6D16F36AB5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTBHolidaySearchConsumer", "OTBHolidaySearchConsumer\OTBHolidaySearchConsumer.csproj", "{A09A970A-BEE6-406C-9038-F6D16F36AB5A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1} = {46C6AAC2-3BD8-4C3C-9CAE-834CE50496D1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
