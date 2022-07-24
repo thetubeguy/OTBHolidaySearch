@@ -4,7 +4,7 @@ Exposes the HolidaySearch class, whose constructor takes as input a list of holi
 
 ### Using The Class Library
 
-Clone the and build the OTBHolidaySearch project.
+Clone the repository and build the OTBHolidaySearch project.
 
 Copy OTBHolidaySearch.dll from the build folder and add a reference to the dll in your new project.
 
@@ -34,6 +34,23 @@ Include, in your new project, a reference to the namespace OTBHolidaySearch.
         Console.WriteLine($"Hotel Id: {holidaySearch.Results.First().Hotel.Id}");
         Console.WriteLine($"Hotel Name: {holidaySearch.Results.First().Hotel.Name}");
         Console.WriteLine($"Hotel Price Per Night: {holidaySearch.Results.First().Hotel.PricePerNight}");
+    
+ ### Contributing To Development
+ 
+ Fork and clone the repository.
+ 
+ 
+ 
+ Please add tests to the OTBHolidaySearch.Test project for any new functionality.
+ 
+ Ensure that all tests in the OTBHolidaySearch.Test project pass before submitting a pull request.
+ 
+ #### Notes: 
+ 
+ Files in the JsonData folders are automatically copied to the build folder at build time.
+ 
+ The OTBHolidaySearchConsumer project references OTBHolidaySearch.dll in the build folder of the OTBHolidaySearch project.
+ 
     
 
 
