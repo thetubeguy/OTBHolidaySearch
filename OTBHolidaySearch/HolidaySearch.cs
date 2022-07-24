@@ -102,12 +102,12 @@ namespace OTBHolidaySearch
 
 
             // flights cannot be null here because of earlier check
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            if (flights.FlightList == null)
+
+            if (flights!.FlightList == null)
             {
                 throw new Exception("FlightList is empty");
             }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
 
             foreach (Flight flight in flights.FlightList)
             {
@@ -130,12 +130,12 @@ namespace OTBHolidaySearch
             List<Hotel> hotelsMeetingCriteria = new();
 
             // hotels cannot be null here because of earlier check
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            if (hotels.HotelList == null)
+
+            if (hotels!.HotelList == null)
             {
                 throw new Exception("HotelList is empty");
             }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
 
             foreach (Hotel hotel in hotels.HotelList)
             {
