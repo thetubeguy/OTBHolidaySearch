@@ -14,8 +14,8 @@ namespace OTBHolidaySearch
 
 
         public ValidatedCriteria? ValidatedCriteria = null;
-        public List<Flight>? flightsThatMeetCriteria = null;
-        public List<Hotel>? hotelsThatMeetCriteria = null;
+        public List<Flight>? FlightsThatMeetCriteria = null;
+        public List<Hotel>? HotelsThatMeetCriteria = null;
         public List<Result>? Results = null;
         readonly Flights? flights = null;
         readonly Hotels? hotels = null;
@@ -65,22 +65,22 @@ namespace OTBHolidaySearch
                 throw new Exception("Departure date validation failed");
             }
 
-            flightsThatMeetCriteria = GetFlights(ValidatedCriteria.DepartingFrom, ValidatedCriteria.TravellingTo, (DateTime)ValidatedCriteria.DepartureDate);
+            FlightsThatMeetCriteria = GetFlights(ValidatedCriteria.DepartingFrom, ValidatedCriteria.TravellingTo, (DateTime)ValidatedCriteria.DepartureDate);
 
-            hotelsThatMeetCriteria = GetHotels(ValidatedCriteria.TravellingTo, (DateTime)ValidatedCriteria.DepartureDate, ValidatedCriteria.Duration);
+            HotelsThatMeetCriteria = GetHotels(ValidatedCriteria.TravellingTo, (DateTime)ValidatedCriteria.DepartureDate, ValidatedCriteria.Duration);
 
             List<Result> unorderedResults = new();
 
-            if ((flightsThatMeetCriteria == null) || (flightsThatMeetCriteria.Count == 0) || (hotelsThatMeetCriteria == null) || (hotelsThatMeetCriteria.Count == 0))
+            if ((FlightsThatMeetCriteria == null) || (FlightsThatMeetCriteria.Count == 0) || (HotelsThatMeetCriteria == null) || (HotelsThatMeetCriteria.Count == 0))
             {
                 Results = new();
                 Results.Add(new("No flights matching input criteria were found"));
             }
             else
             {
-                foreach (Flight criteriaFlight in flightsThatMeetCriteria)
+                foreach (Flight criteriaFlight in FlightsThatMeetCriteria)
                 {
-                    foreach (Hotel criteriaHotel in hotelsThatMeetCriteria)
+                    foreach (Hotel criteriaHotel in HotelsThatMeetCriteria)
                     {
                         unorderedResults.Add(new(criteriaFlight, criteriaHotel));
                     }
