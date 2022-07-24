@@ -21,7 +21,7 @@ namespace OTBHolidaySearch.Test.SearchTests
 
         [Test]
 
-        public void Pass_Criteria_To_HolidaySearch_In_Json_String_And_Check_Validation()
+        public void Pass_Criteria_To_HolidaySearch_In_Json_String_And_Check_Validation_With_Single_Departure_Airport()
         {
             // Arrange
 
@@ -148,6 +148,7 @@ namespace OTBHolidaySearch.Test.SearchTests
             hotels[0].Id.Should().Be(6);
 
         }
+
 
     }
 }

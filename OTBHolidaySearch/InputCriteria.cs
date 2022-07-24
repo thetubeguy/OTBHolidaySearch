@@ -23,20 +23,25 @@ namespace OTBHolidaySearch
         public int? Duration { get; set; }
    
 
-        public ValidatedCriteria validateInputCriteria(Airports airports)
+        public ValidatedCriteria? validateInputCriteria(Airports airports)
         {
-            ValidatedCriteria validatedCriteria = new();
+            ValidatedCriteria? validatedCriteria = new();
 
             // Check for "Any Airport"
+            if ((this.DepartingFrom == null) || (this.DepartingFrom.Count() == 0)) throw new Exception("No departure airport found in input criteria");
             if (Regex.IsMatch(this.DepartingFrom, @".*Any\s+Airport.*"))
                 validatedCriteria.DepartingFrom = airports.UkAirports;
             else
             {
+                validatedCriteria.DepartingFrom = new();
                 foreach (Airport airport in airports.UkAirports)
                 {
                     // Check for airport code match
                     if (Regex.IsMatch(this.DepartingFrom, ".*" + airport.Code + ".*"))
+                    {
+                        
                         validatedCriteria.DepartingFrom.Add(airport);
+                    }
                     else
                     {
                         // Check for "Any <City> airport"
@@ -51,6 +56,9 @@ namespace OTBHolidaySearch
                 }
             }
 
+ 
+
+            if ((this.TravelingTo == null) || (this.TravelingTo == "")) throw new Exception("No destination airport found in input criteria");
             foreach (Airport airport in airports.OverseasAirports)
             {
                 if (Regex.IsMatch(this.TravelingTo, @".*" + airport.Code + @".*"))
@@ -58,10 +66,13 @@ namespace OTBHolidaySearch
 
             }
 
+            if (this.DepartureDate == null) throw new Exception("No Departure date found in input criteria");
             validatedCriteria.DepartureDate = this.DepartureDate;
 
+            if (this.Duration == null) throw new Exception("No Duration found in input criteria");
             validatedCriteria.Duration = this.Duration;
 
+            
             return validatedCriteria;
         } 
     }

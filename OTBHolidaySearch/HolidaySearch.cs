@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Reflection;
 
+
 namespace OTBHolidaySearch
 {
 
@@ -19,52 +20,75 @@ namespace OTBHolidaySearch
         static public string HotelFilePath = BuildPath + "HotelData.json";
 
 
-        public ValidatedCriteria? ValidatedCriteria;
-        public List<Flight?> flightsThatMeetCriteria;
-        public List<Hotel?> hotelsThatMeetCriteria;
-        public List<Result> Results;
+        public ValidatedCriteria? ValidatedCriteria = null;
+        public List<Flight>? flightsThatMeetCriteria = null;
+        public List<Hotel>? hotelsThatMeetCriteria = null;
+        public List<Result>? Results = null;
 
-        Flights? flights;
-        Hotels? hotels;
+        Flights? flights = null;
+        Hotels? hotels = null;
 
         public HolidaySearch(string jsoninput)
         {
-            InputCriteria? inputCriteria = JsonSerializer.Deserialize<InputCriteria>(jsoninput);
-
-            Airports airports = new();
-            ValidatedCriteria = inputCriteria.validateInputCriteria(airports);
+            InputCriteria? inputCriteria = null;
+            inputCriteria = JsonSerializer.Deserialize<InputCriteria>(jsoninput);
+            if (inputCriteria == null) throw new Exception("Could not read input criteria");
 
             string jsonStringFlights = File.ReadAllText(FlightFilePath);
             flights = JsonSerializer.Deserialize<Flights>(jsonStringFlights);
+            if (flights == null) throw new Exception("Could not read flight data");
 
             string jsonStringHotels = File.ReadAllText(HotelFilePath);
             hotels = JsonSerializer.Deserialize<Hotels>(jsonStringHotels);
+            if (hotels == null) throw new Exception("Could not read hotel data");
+
+            Airports airports = new();
+            ValidatedCriteria = inputCriteria.validateInputCriteria(airports);
+            if (ValidatedCriteria == null) throw new Exception("Input criteria not valid");
+
+            if ((ValidatedCriteria.DepartingFrom == null) || (ValidatedCriteria.DepartingFrom.Count == 0)) throw new Exception("Departure airport validation failed");
+            if (ValidatedCriteria.TravellingTo == null) throw new Exception("Destination airport validation failed");
+            if (ValidatedCriteria.DepartureDate == null) throw new Exception("Departure date validation failed");
 
             flightsThatMeetCriteria = GetFlights(ValidatedCriteria.DepartingFrom, ValidatedCriteria.TravellingTo, (DateTime)ValidatedCriteria.DepartureDate);
 
             hotelsThatMeetCriteria = GetHotels(ValidatedCriteria.TravellingTo, (DateTime)ValidatedCriteria.DepartureDate, ValidatedCriteria.Duration);
 
             List<Result> unorderedResults = new();
-            foreach (Flight criteriaFlight in flightsThatMeetCriteria)
-                foreach (Hotel criteriaHotel in hotelsThatMeetCriteria)
-                    unorderedResults.Add(new(criteriaFlight, criteriaHotel));
 
-            Results = unorderedResults.OrderBy(r => r.TotalPrice).ToList();
+            if ((flightsThatMeetCriteria == null) || (flightsThatMeetCriteria.Count == 0) || (hotelsThatMeetCriteria == null) || (hotelsThatMeetCriteria.Count == 0))
+            {
+                Results = new();
+                Results.Add(new("No flights matching input criteria were found"));
+            }
+            else
+            {
+                foreach (Flight criteriaFlight in flightsThatMeetCriteria)
+                    foreach (Hotel criteriaHotel in hotelsThatMeetCriteria)
+                        unorderedResults.Add(new(criteriaFlight, criteriaHotel));
+
+                Results = unorderedResults.OrderBy(r => r.TotalPrice).ToList();
+            }
         }
 
-        public List<Flight?> GetFlights(List<Airport> fromAirports, Airport toAirport, DateTime departureDate)
+        public List<Flight>? GetFlights(List<Airport> fromAirports, Airport toAirport, DateTime departureDate)
         {
             List<string> fromAirportCodes = new();
-           
-
             foreach (Airport airport in fromAirports)
                 fromAirportCodes.Add(airport.Code);
 
      
-            List<Flight?> flightsMeetingCriteria = new();
+            List<Flight> flightsMeetingCriteria = new();
 
-            foreach(Flight? flight in flights?.FlightList)
+
+            // flights cannot be null here because of earlier check
+            #pragma warning disable CS8602 // Dereference of a possibly null reference.
+            if (flights.FlightList == null) throw new Exception("FlightList is empty");
+            #pragma warning restore CS8602 // Dereference of a possibly null reference.
+
+            foreach (Flight flight in flights.FlightList)
             {
+                if (flight.From == null) throw new Exception($"Flight {flight.Id} in FlightList does not have departure airport");
                 if(fromAirportCodes.Contains(flight.From) && (departureDate == flight.DepartureDate) && (toAirport.Code == flight.To))
                     flightsMeetingCriteria.Add(flight);
             }
@@ -72,13 +96,19 @@ namespace OTBHolidaySearch
             return flightsMeetingCriteria;
         }
 
-        public List<Hotel?> GetHotels(Airport toAirport, DateTime arrivalDate, int? numNights)
+        public List<Hotel> GetHotels(Airport toAirport, DateTime arrivalDate, int? numNights)
         {
-            List<Hotel?> hotelsMeetingCriteria = new();
+            List<Hotel> hotelsMeetingCriteria = new();
 
-            foreach(Hotel? hotel in hotels?.HotelList)
+            // hotels cannot be null here because of earlier check
+            #pragma warning disable CS8602 // Dereference of a possibly null reference.
+            if (hotels.HotelList == null) throw new Exception("HotelList is empty");
+            #pragma warning restore CS8602 // Dereference of a possibly null reference.
+
+            foreach (Hotel hotel in hotels.HotelList)
             {
-                if(hotel.LocalAirports.Contains(toAirport.Code) && (arrivalDate == hotel.ArrivalDate) && (numNights == hotel.Nights))
+                if (hotel.LocalAirports == null) throw new Exception($"Hotel {hotel.Id} in HotelList does not have local airports");
+                if (hotel.LocalAirports.Contains(toAirport.Code) && (arrivalDate == hotel.ArrivalDate) && (numNights == hotel.Nights))
                     hotelsMeetingCriteria.Add(hotel);
             }
 

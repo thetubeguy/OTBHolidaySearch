@@ -95,5 +95,33 @@ namespace OTBHolidaySearch.Test.LibraryTests
             holidaySearch.Results.First().Hotel.Id.Should().Be(6);
             holidaySearch.Results.First().TotalPrice.Should().Be(1175);
         }
+
+
+        [Test]
+
+        public void Query_Generating_No_Results_Should_Generate_Result_With_Message()
+        {
+            // Arrange
+
+            string jsonString = @"{
+                                    ""DepartingFrom"": ""Any Airport"",
+                                    ""TravelingTo"": ""LPA"",
+                                    ""DepartureDate"": ""2022-01-10"",
+                                    ""Duration"": 14
+                                    
+            }";
+
+
+            // Act
+
+            HolidaySearch? holidaySearch = new(jsonString);
+
+
+
+            // Assert
+
+            holidaySearch.Results.First().Message.Should().Be("No flights matching input criteria were found");
+
+        }
     }
 }
